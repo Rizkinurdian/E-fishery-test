@@ -1,0 +1,26 @@
+driver.get("https://accounts.google.com/v3/signin/identifier?dsh=S-2012540496%3A1665840487915699&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3Dhttps%253A%252F%252Fmusic.youtube.com%252Flogin%26feature%3D__FEATURE__&hl=en&ltmpl=music&passive=true&service=youtube&uilel=3&flowName=GlifWebSignIn&flowEntry=ServiceLogin&ifkv=AQDHYWqmxi53kMkR2IRaJFmOE4HSZEHEYTYituWaUbJk-UEAXDC5be5agOpap81Lxvg06WwnPxiEjg")
+
+
+# Find the username/email field and send the username to the input field.
+uname = driver.find_element("id", "login_field") 
+uname.send_keys("email")
+
+# Find the password input field and send the password to the input field.
+pword = driver.find_element("id", "password") 
+pword.send_keys("password")
+
+# Click sign in button to login the website.
+driver.find_element("name", "commit").click()# Wait for login process to complete. 
+WebDriverWait(driver=driver, timeout=10).until(
+    lambda x: x.execute_script("return document.readyState === 'complete'")
+)# Verify that the login was successful.
+error_message = "Incorrect username or password."
+# Retrieve any errors found. 
+errors = driver.find_elements(By.CLASS_NAME, "flash-error")
+
+# When errors are found, the login will fail. 
+if any(error_message in e.text for e in errors): 
+    print("[!] Login failed")
+else:
+    print("[+] Login successful")# Close the driver
+driver.close()
