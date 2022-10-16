@@ -12,7 +12,7 @@ pword.send_keys("password")
 # Click sign in button to login the website.
 driver.find_element("name", "commit").click()# Wait for login process to complete. 
 WebDriverWait(driver=driver, timeout=10).until(
-    lambda x: x.execute_script("return document.readyState === 'complete'")
+lambda x: x.execute_script("return document.readyState === 'complete'")
 )# Verify that the login was successful.
 error_message = "Incorrect username or password."
 # Retrieve any errors found. 
